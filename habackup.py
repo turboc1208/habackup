@@ -1,11 +1,10 @@
-import appdaemon.appapi as appapi
+import my_appapi as appapi
 import os
 import datetime
 import time
 import subprocess
-from utils import *
              
-class habackup(appapi.AppDaemon):
+class habackup(appapi.my_appapi):
 
   def initialize(self):
     # self.LOGLEVEL="DEBUG"
@@ -37,12 +36,4 @@ class habackup(appapi.AppDaemon):
         if os.path.isfile(fcheck):
           self.log("removing file {}".format(fcheck))
           os.remove(fcheck)
-
-  def log(self,msg,level="INFO"):
-    try:
-      obj,fname, line, func, context, index=inspect.getouterframes(inspect.currentframe())[1]
-    except IndexError:
-      self.log("Unknown - (xxx) {}".format(msg),level)
-    
-    super(habackup,self).log("{} - ({}) {}".format(func,str(line),msg),level)
 
